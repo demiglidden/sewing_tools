@@ -10,13 +10,12 @@ from PyPDF2 import PdfFileReader, PdfFileWriter
 
 def tile_pdf(input_pdf, output_pdf, input_width, input_length):
     # Constants for 8.5 by 11 inch page size
-    # Using slightly smaller dimensions so that there is a margin when you print
-    page_width = 8 * 72  # Convert inches to points
-    page_height = 10.5 * 72
+    page_width = 8.5 * 72  # Convert inches to points
+    page_height = 11 * 72
 
     # Calculate the number of rows and columns
-    rows = int(input_length / 8)
-    columns = int(input_width / 10.5)
+    rows = int(input_length / 11)
+    columns = int(input_width / 8.5)
 
     # Initialize a PdfFileWriter object for the output PDF
     writer = PdfFileWriter()
@@ -29,7 +28,8 @@ def tile_pdf(input_pdf, output_pdf, input_width, input_length):
         # Calculate the dimensions for cropping each page
         crop_width = reader.getPage(0).mediaBox.getWidth() / columns
         crop_height = reader.getPage(0).mediaBox.getHeight() / rows
-
+        print(crop_width)
+        print(crop_height)
         # Iterate through each page of the input PDF
         for page_num in range(total_pages):
             page = reader.getPage(page_num)
